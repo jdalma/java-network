@@ -9,6 +9,14 @@
 > IP 주소는 InetAddress 클래스로 나타낼 수 있고, 주소는 식별된 특정 주소로 전송되는 **유니 캐스트** 이거나, 메시지가 하나 이상의 주소로 전송되는 **멀티 캐스트** 일 수 있다.  
 > public 생성자가 없으며, 인스턴스를 얻으려면 여러가지 정적 get 메서드를 사용해야 한다.  
 
+## UDP 와 멀티캐스팅
+
+멀티캐스팅은 주기적으로 그룹에 메시지를 전송해야 할 경우에 유용한 기술이며 **UPD 서버와 하나 이상의 UDP 클라이언트를 사용한다.**  
+그룹은 멀티캐스트 주소로 식별하며 `224.0.0.0 ~ 239.255.255.255`의 IP 주소 범위를 가져야 한다.  
+클라이언트는 멀티캐스트 메시지를 수신하기 전에 그룹에 가입해야 하며, 서버는 이 주소로 **메시지 마크** 를 전송한다.  
+  
+한 개의 서버가 여러 클라이언트에게 초마다 10개의 날짜와 시간 문자열을 전송하는 [SimpleMulticastServer](./src/main/java/org/example/simplemulticast/SimpleMulticastServer.java)와 5개의 패킷을 전달받는 [SimpleMulticastClient](./src/main/java/org/example/simplemulticast/SimpleMulticastClient.java) 참고  
+
 ## NIO
 
 - **채널** : 애플리케이션간의 통신을 단순화하는 추상적 개념이며 애플리케이션 간의 데이터 흐름을 나타낸다.
@@ -30,22 +38,5 @@
 1. 데이터그램 소켓
 2. TCP를 주로 사용하는 스트림 소켓
 3. IP레벨에서 동작하는 로우 소켓
-
-```java
-try(ServerSocket serverSocket = new ServerSocket(6000)) {
-  System.out.println("Waiting for connection ...");
-  Socket clientSocket = serverSocket.accept();
-  System.out.println("Connected to client !!!");
   
-  // 클라이언트의 메시지를 읽기 위한 BufferedReader를 생성 (InputStream)
-  try(BufferedReader br = new BufferedReader(
-    new InputStreamReader(clientSocket.getInputStream()))
-  ) {
-    // ...
-    // 클라이언트에 응답하기 위한 PrintWriter를 생성 (OutputStream)
-    PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true);
-  }
-} catch (IOException ex) {
-    // ...
-}
-```
+[SimpleEchoClient](./src/main/java/org/example/simpleecho/SimpleEchoClient.java)와 [SimpleEchoServer](./src/main/java/org/example/simpleecho/SimpleEchoServer.java)와 참고  

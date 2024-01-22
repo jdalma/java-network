@@ -23,14 +23,12 @@ public class SimpleEchoServer {
             System.out.println("[Simple Echo Server] Connected to client !!!");
 
             // 클라이언트의 메시지를 읽기 위한 BufferedReader를 생성 (InputStream)
-            try(BufferedReader br = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()))
-            ) {
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 // 클라이언트에 응답하기 위한 PrintWriter를 생성 (OutputStream)
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-//                traditionalImpl(br, out);
-                functionalImpl(br, out);
+                traditionalImpl(br, out);
+//                functionalImpl(br, out);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

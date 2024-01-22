@@ -31,7 +31,7 @@ public class SimpleEchoClient {
 //                traditionalImpl(scanner, out, br);
                 functionalImpl(scanner, out, br);
             }
-
+            System.out.println("[Simple Echo Client] Terminating");
         } catch (IOException e) {
             e.printStackTrace();
         }
